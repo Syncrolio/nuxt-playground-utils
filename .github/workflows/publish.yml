@@ -1,0 +1,38 @@
+name: Publish Package
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set version from commit SHA
+        run: |
+          BASE_VERSION=$(jq -r .version package.json)
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          bun run npm version "${BASE_VERSION}-${SHORT_SHA}" --no-git-tag-version
+
+      - name: Prepare environment
+        run: bun run dev:prepare
+      - name: Build package
+        run: bun run prepack
+
+      - name: Publish to GitHub Packages
+        run: bun publish --no-git-checks --tag latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

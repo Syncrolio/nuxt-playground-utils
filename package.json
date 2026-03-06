@@ -1,9 +1,17 @@
 {
-  "name": "nuxt-playground-utils",
+  "name": "@syncrolio/nuxt-playground-utils",
   "version": "1.0.0",
   "description": "My new Nuxt module",
   "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Syncrolio/nuxt-playground-utils.git"
+  },
   "exports": {
     ".": {
       "types": "./dist/types.d.mts",
