@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://bun.pkg.github.com",
     "access": "public"
   },
   "repository": {
@@ -31,12 +31,12 @@
   ],
   "scripts": {
     "prepack": "nuxt build-module build",
-    "dev": "npm run play:dev",
+    "dev": "bun run play:dev",
     "dev:prepare": "nuxt-module-build --stub",
     "prepare": "nuxi prepare",
     "play:dev": "nuxi dev playground",
-    "play:prod": "npm run prepack && nuxi dev playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "play:prod": "bun run prepack && nuxi dev playground",
+    "release": "bun run lint && bun run test && bun run prepack && changelogen --release && bun publish && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
