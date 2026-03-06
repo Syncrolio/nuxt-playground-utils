@@ -30,12 +30,11 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "nuxt-module-build && npm run client:build",
-    "client:build": "nuxi generate client",
-    "client:dev": "nuxi dev client --port 3300",
+    "prepack": "nuxt build-module prepare",
+    "build": "nuxt build-module build",
     "dev": "npm run play:dev",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare client",
-    "prepare": "nuxi prepare client",
+    "dev:prepare": "nuxt-module-build --stub",
+    "prepare": "nuxi prepare",
     "play:dev": "nuxi dev playground",
     "play:prod": "npm run prepack && nuxi dev playground",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
@@ -46,6 +45,7 @@
   "dependencies": {
     "@nuxt/devtools-kit": "^3.2.2",
     "@nuxt/kit": "^4.3.1",
+    "confbox": "^0.2.4",
     "sirv": "^3.0.2"
   },
   "devDependencies": {
@@ -60,6 +60,7 @@
     "changelogen": "^0.6.2",
     "eslint": "^10.0.2",
     "nuxt": "^4.3.1",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "vue-tsc": "^3.2.5"
   }
 }

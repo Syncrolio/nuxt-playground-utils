@@ -30,7 +30,7 @@ jobs:
       - name: Prepare environment
         run: bun run dev:prepare
       - name: Build package
-        run: bun run prepack
+        run: bun run build
 
       - name: Publish to GitHub Packages
         run: bun publish --no-git-checks --tag latest
