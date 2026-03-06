@@ -30,7 +30,7 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "nuxt build-module build",
+    "prepack": "nuxi build-module build",
     "dev": "bun run play:dev",
     "dev:prepare": "nuxt-module-build --stub",
     "prepare": "nuxi prepare",
