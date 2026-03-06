@@ -1,93 +1,148 @@
-<!--
-Get your module up and running quickly.
+# Nuxt Playground Utils
 
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
-
-# My Module
-
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-My new Nuxt module integrated with the [Nuxt Devtools](https://github.com/nuxt/devtools).
+`@syncrolio/nuxt-playground-utils` adds a lightweight, in-app playground toolbar for Nuxt projects.
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+It discovers utility components from your app (including Nuxt layers), exposes utility metadata at runtime, and renders a draggable dock for fast QA and development workflows.
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- Layer-aware utility discovery (`app/playground` and `playground` folders)
+- Auto-registration of discovered utility components
+- `definePlaygroundUtil(...)` helper for utility metadata
+- In-app draggable dock component (`<PlaygroundDock />`)
+- Built on Nuxt UI components
 
-## Quick Setup
+## Requirements
 
-1. Add `my-module` dependency to your project
+- Nuxt 4+
+
+## Installation
 
 ```bash
-# Using pnpm
-pnpm add -D my-module
+# pnpm
+pnpm add -D @syncrolio/nuxt-playground-utils
 
-# Using yarn
-yarn add --dev my-module
+# npm
+npm install -D @syncrolio/nuxt-playground-utils
 
-# Using npm
-npm install --save-dev my-module
+# yarn
+yarn add -D @syncrolio/nuxt-playground-utils
+
+# bun
+bun add -d @syncrolio/nuxt-playground-utils
 ```
 
-2. Add `my-module` to the `modules` section of `nuxt.config.ts`
+## Setup
 
-```js
+Add the module in your `nuxt.config.ts`:
+
+```ts
 export default defineNuxtConfig({
-  modules: [
-    'my-module'
-  ]
-})
+  modules: ["@syncrolio/nuxt-playground-utils"],
+});
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+Mount the dock in your app shell (recommended dev-only):
+
+```vue
+<template>
+  <UApp>
+    <NuxtPage />
+
+    <DevOnly>
+      <PlaygroundDock />
+    </DevOnly>
+  </UApp>
+</template>
+```
+
+## Create Utilities
+
+Create a Vue file in one of these folders:
+
+- `app/playground/*.vue`
+- `playground/*.vue`
+
+Then define utility metadata:
+
+```vue
+<script setup lang="ts">
+definePlaygroundUtil({
+  id: "route-shortcuts",
+  name: "Route Shortcuts",
+  description: "Jump between key pages while testing",
+  order: 10,
+  icon: "carbon:compass",
+});
+</script>
+
+<template>
+  <div>Your utility UI goes here.</div>
+</template>
+```
+
+## `definePlaygroundUtil` API
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No | Stable identifier. Falls back to file name if omitted. |
+| `name` | `string` | Yes | Display name in the dock. |
+| `description` | `string` | No | Short help text shown in the popover. |
+| `order` | `number` | No | Sort order (ascending). |
+| `icon` | `string` | No | Icon name used for the dock action button. |
+
+## How Discovery Works
+
+- The module scans playground utility files from the active app and layer source directories.
+- It parses `definePlaygroundUtil(...)` metadata.
+- It auto-registers each utility component globally.
+- It exposes utility metadata in runtime config under `runtimeConfig.public.playgroundUtils.utils`.
+
+## Module Options
+
+```ts
+export default defineNuxtConfig({
+  playgroundUtils: {
+    devtools: true,
+  },
+});
+```
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `devtools` | `boolean` | `true` | Enables module devtools integration behavior. |
 
 ## Development
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
-# Generate type stubs
-npm run dev:prepare
+# Generate stubs
+bun run dev:prepare
 
-# Develop with playground, with devtools client ui
-npm run dev
+# Run playground in dev mode
+bun run dev
 
-# Develop with playground, with bundled client ui
-npm run play:prod
+# Build module and run playground
+bun run play:prod
 
-# Run ESLint
-npm run lint
+# Lint
+bun run lint
 
-# Run Vitest
-npm run test
-npm run test:watch
-
-# Release new version
-npm run release
+# Tests
+bun run test
+bun run test:watch
 ```
 
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
-[npm-version-href]: https://npmjs.com/package/my-module
+## License
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=18181B&colorB=28CF8D
-[npm-downloads-href]: https://npmjs.com/package/my-module
+MIT
 
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=18181B&colorB=28CF8D
-[license-href]: https://npmjs.com/package/my-module
-
+[license-src]: https://img.shields.io/npm/l/@syncrolio/nuxt-playground-utils.svg?style=flat&colorA=18181B&colorB=28CF8D
+[license-href]: https://opensource.org/license/mit
 [nuxt-src]: https://img.shields.io/badge/Nuxt-18181B?logo=nuxt
 [nuxt-href]: https://nuxt.com
