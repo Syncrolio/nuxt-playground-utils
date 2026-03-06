@@ -86,13 +86,13 @@ definePlaygroundUtil({
 
 ## `definePlaygroundUtil` API
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | No | Stable identifier. Falls back to file name if omitted. |
-| `name` | `string` | Yes | Display name in the dock. |
-| `description` | `string` | No | Short help text shown in the popover. |
-| `order` | `number` | No | Sort order (ascending). |
-| `icon` | `string` | No | Icon name used for the dock action button. |
+| Field         | Type     | Required | Description                                            |
+| ------------- | -------- | -------- | ------------------------------------------------------ |
+| `id`          | `string` | No       | Stable identifier. Falls back to file name if omitted. |
+| `name`        | `string` | Yes      | Display name in the dock.                              |
+| `description` | `string` | No       | Short help text shown in the popover.                  |
+| `order`       | `number` | No       | Sort order (ascending).                                |
+| `icon`        | `string` | No       | Icon name used for the dock action button.             |
 
 ## How Discovery Works
 
@@ -111,9 +111,9 @@ export default defineNuxtConfig({
 });
 ```
 
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `devtools` | `boolean` | `true` | Enables module devtools integration behavior. |
+| Option     | Type      | Default | Description                                   |
+| ---------- | --------- | ------- | --------------------------------------------- |
+| `devtools` | `boolean` | `true`  | Enables module devtools integration behavior. |
 
 ## Development
 
