@@ -280,8 +280,9 @@ function onDockMouseDown(event: MouseEvent) {
   display: flex;
   align-items: center;
   gap: calc(var(--spacing) * 2);
-  overflow-x: auto;
+  /* overflow-x: auto; */
   padding: calc(var(--spacing) * 2);
+  margin-right: calc(var(--spacing) * 2);
 }
 
 .dock-action {
